@@ -1,0 +1,17 @@
+- job:
+    name: base
+    parent: null
+    description: The base job not using openstack-infra/zuul-jobs roles
+    pre-run: playbooks/base/pre.yaml
+    post-run:
+      - playbooks/base/post.yaml
+
+- job:
+    name: upstream-base
+    parent: null
+    description: The upstream-base job using zuul-jobs roles
+    pre-run: playbooks/upstream-base/pre.yaml
+    post-run:
+      - playbooks/upstream-base/post-logs.yaml
+    roles:
+      - zuul: openstack/ironic

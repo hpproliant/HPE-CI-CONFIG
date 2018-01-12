@@ -1,0 +1,9 @@
+- project:
+    name: openstack/ironic
+    third-party-check:
+      jobs:
+        - test-basic-roles
+        - test-job-unittests
+    third-party-post:
+      jobs:
+        - test-base
