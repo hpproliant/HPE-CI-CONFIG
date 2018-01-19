@@ -46,6 +46,7 @@
         dest: "{{ tmpe.path }}"
         mode: 0777
       no_log: true
+      become: true
 
     - name: Posting logs to logserver
       shell: bash {{ tmpe.path }}
