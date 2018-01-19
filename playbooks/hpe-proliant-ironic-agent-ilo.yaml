@@ -11,4 +11,4 @@
       shell: cd /tmp/agent-ilo; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
 
     - name: Running agent-ilo
-      shell: sudo bash /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/gate.sh
+      shell: bash /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/gate.sh
