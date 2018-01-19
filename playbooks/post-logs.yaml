@@ -35,6 +35,7 @@
       copy:
         content: |
           sshpass -p ubuntu ssh -o StrictHostKeyChecking=no ubuntu@10.13.120.209 "mkdir -p /var/www/logs/{{ log_path }}/"
+          sshpass -p zuul12iso*help ssh -o StrictHostKeyChecking=no zuul@10.13.120.207 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
           sshpass -p zuul12iso*help scp -o StrictHostKeyChecking=no -r zuul@10.13.120.207:{{ zuul.executor.log_root }} /tmp/new_zuul/
           if [ -d /tmp/new_zuul ]; then
              echo "Pasting log path"
