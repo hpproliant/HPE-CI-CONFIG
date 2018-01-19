@@ -40,9 +40,9 @@
              echo "Pasting log path"
              sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/new_zuul/* ubuntu@10.13.120.209:/var/www/logs/{{ log_path }}/
           fi
-#          if [ -d /tmp/devstack_logs/ ]; then
-#            sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/devstack_logs/* ubuntu@10.13.120.209:/var/www/logs/{{ log_path }}/devstack_logs/
-#          fi
+          if [ -d /tmp/devstack_logs/ ]; then
+             sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/devstack_logs/* ubuntu@10.13.120.209:/var/www/logs/{{ log_path }}/devstack_logs/
+          fi
         dest: "{{ tmpe.path }}"
         mode: 0777
       no_log: true
