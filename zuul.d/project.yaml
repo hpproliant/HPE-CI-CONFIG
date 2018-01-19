@@ -2,4 +2,4 @@
     name: openstack/ironic
     check:
       jobs:
-        - test-basic
+        - hpe-proliant-ironic-agent-ilo
