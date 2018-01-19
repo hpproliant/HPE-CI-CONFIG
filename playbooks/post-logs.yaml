@@ -37,7 +37,9 @@
           sshpass -p ubuntu ssh -o StrictHostKeyChecking=no ubuntu@10.13.120.209 "mkdir -p /var/www/logs/{{ log_path }}/devstack_logs/"
           sshpass -p zuul12iso*help scp -o StrictHostKeyChecking=no -r zuul@10.13.120.207:{{ zuul.executor.log_root }} /tmp/new_zuul/
           sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/new_zuul/* ubuntu@10.13.120.209:/var/www/logs/{{ log_path }}/
-          sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/devstack_logs/* ubuntu@10.13.120.209:/var/www/logs/{{ log_path }}/devstack_logs/
+          if [ -d /tmp/devstack_logs/ ]; then
+            sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/devstack_logs/* ubuntu@10.13.120.209:/var/www/logs/{{ log_path }}/devstack_logs/
+          fi
         dest: "{{ tmpe.path }}"
         mode: 0777
       no_log: true
