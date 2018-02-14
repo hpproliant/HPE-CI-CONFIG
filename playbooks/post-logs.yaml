@@ -34,19 +34,19 @@
     - name: Preparing logs
       copy:
         content: |
-          sshpass -p ubuntu ssh -o StrictHostKeyChecking=no ubuntu@10.13.120.209 "mkdir -p /var/www/logs/{{ log_path }}/"
-          sshpass -p zuul12iso*help ssh -o StrictHostKeyChecking=no zuul@10.13.120.207 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
-          sshpass -p zuul12iso*help ssh -o StrictHostKeyChecking=no zuul@10.13.120.207 "sudo chmod -R 0777 /tmp; sudo chown -R zuul.zuul /tmp"
-          sshpass -p zuul12iso*help scp -o StrictHostKeyChecking=no -r zuul@10.13.120.207:{{ zuul.executor.log_root }} /tmp/new_zuul/
+          sshpass -p ubuntu ssh -o StrictHostKeyChecking=no ubuntu@10.13.120.208 "mkdir -p /var/www/logs/{{ log_path }}/"
+          sshpass -p zuul12iso*help ssh -o StrictHostKeyChecking=no zuul@10.13.120.214 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
+          sshpass -p zuul12iso*help ssh -o StrictHostKeyChecking=no zuul@10.13.120.214 "sudo chmod -R 0777 /tmp; sudo chown -R zuul.zuul /tmp"
+          sshpass -p zuul12iso*help scp -o StrictHostKeyChecking=no -r zuul@10.13.120.214:{{ zuul.executor.log_root }} /tmp/new_zuul/
           
           if [ -d /tmp/new_zuul ]; then
              echo "Pasting log path"
-             sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/new_zuul/* ubuntu@10.13.120.209:/var/www/logs/{{ log_path }}/
+             sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/new_zuul/* ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/
           fi
           if [ -d /tmp/devstack_logs/ ]; then
-             sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/devstack_logs/* ubuntu@10.13.120.209:/var/www/logs/{{ log_path }}/devstack_logs/
+             sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/devstack_logs/* ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/devstack_logs/
           fi
-          sshpass -p ubuntu scp -o StrictHostKeyChecking=no /opt/stack/devstack/local.conf ubuntu@10.13.120.209:/var/www/logs/{{ log_path }}/local.conf
+          sshpass -p ubuntu scp -o StrictHostKeyChecking=no /opt/stack/devstack/local.conf ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/local.conf
         dest: "{{ tmpe.path }}"
         mode: 0777
       no_log: true
