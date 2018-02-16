@@ -2,15 +2,15 @@
     name: base
     parent: null
     description: The base job not using openstack/ironic roles
-    post-run: playbooks/post-logs.yaml
     timeout: 10800
+    post-run: playbooks/post-logs.yaml
 
 - job:
     name: hpe-proliant-ironic-agent-ilo
     description: A job to test agent based driver for HPE Proliant Server
+    timeout: 10800
     parent: base
     run: playbooks/hpe-proliant-ironic-agent-ilo.yaml
-    timeout: 10800
     nodeset:
       nodes:
         - name: ubuntu
