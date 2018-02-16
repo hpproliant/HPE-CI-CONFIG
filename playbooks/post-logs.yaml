@@ -44,7 +44,7 @@
              sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/new_zuul/* ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/
           fi
           if [ -d /tmp/devstack_logs/ ]; then
-             sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/devstack_logs/* ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/devstack_logs/
+             sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/devstack_logs/ ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/
           fi
           sshpass -p ubuntu scp -o StrictHostKeyChecking=no /opt/stack/devstack/local.conf ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/local.conf
         dest: "{{ tmpe.path }}"
