@@ -14,7 +14,7 @@
       shell: sudo bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/configure_molten
 
     - name: Allocating test node
-      shell: bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py agent_ilo
+      shell: bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py agent_ilo Gen9_agent
 
     - name: Running agent-ilo
       shell: bash /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/gate.sh
