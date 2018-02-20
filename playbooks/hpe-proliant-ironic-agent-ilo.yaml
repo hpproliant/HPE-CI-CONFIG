@@ -10,14 +10,17 @@
     - name: Clonning devstack-gate for agent-ilo
       shell: cd /tmp/agent-ilo; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
 
-    - name: Configure molten
-      shell: sudo bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/configure_molten
+    - name: Configure hardware
+      shell: echo "10.12.12.229 8c:dc:d4:af:6e:20 Administrator ironmantesting" > /tmp/hardware_info
 
-    - name: Allocating test node
-      shell: bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py agent_ilo Gen9_agent
+#    - name: Configure molten
+#      shell: sudo bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/configure_molten
+
+#    - name: Allocating test node
+#      shell: bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py agent_ilo Gen9_agent
 
     - name: Running agent-ilo
       shell: bash /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/gate.sh
 
-    - name: Deallocating test node
-      shell: bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/release_molten.py agent_ilo
+#    - name: Deallocating test node
+#      shell: bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/release_molten.py agent_ilo
