@@ -6,11 +6,22 @@
     post-run: playbooks/post-logs.yaml
 
 - job:
-    name: hpe-proliant-ironic-agent-ilo
+    name: hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct
     description: A job to test agent based driver for HPE Proliant Server
     timeout: 10800
     parent: base
     run: playbooks/hpe-proliant-ironic-agent-ilo.yaml
+    nodeset:
+      nodes:
+        - name: ubuntu
+          label: cloud
+
+- job:
+    name: hpe-gen8-dsvm-ironic-standalone-wholedisk-bios-ilo-virtual-media-iscsi
+    description: A job to test agent based driver for HPE Proliant Server
+    timeout: 10800
+    parent: base
+    run: playbooks/hpe-proliant-ironic-iscsi-ilo.yaml
     nodeset:
       nodes:
         - name: ubuntu

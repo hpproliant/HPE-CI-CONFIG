@@ -2,4 +2,5 @@
     name: openstack/ironic
     check:
       jobs:
-        - hpe-proliant-ironic-agent-ilo
+        - hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct
+        - hpe-gen8-dsvm-ironic-standalone-wholedisk-bios-ilo-virtual-media-iscsi
