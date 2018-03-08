@@ -10,14 +10,13 @@
     - name: Clonning devstack-gate for iscsi-ilo
       shell: cd /tmp/iscsi-ilo; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
 
-    - name: Configure molten
-      shell: sudo bash /tmp/iscsi-ilo/HPE-CI-JOBS/molteniron/configure_molten
-
-    - name: Allocating test node
-      command: /tmp/iscsi-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py iscsi_ilo Gen8
+    - name: Generate MoltenIron Id for node
+      shell : cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1
+      register: uuid
 
     - name: Running iscsi-ilo
-      shell: bash /tmp/iscsi-ilo/HPE-CI-JOBS/iscsi-ilo/gate.sh
+      shell: bash /tmp/iscsi-ilo/HPE-CI-JOBS/iscsi-ilo/gate.sh uuid.result
 
     - name: Deallocating test node
-      command: /tmp/iscsi-ilo/HPE-CI-JOBS/molteniron/release_molten.py iscsi_ilo
+      shell:  /usr/local/bin/molteniron release uuid.result
+
