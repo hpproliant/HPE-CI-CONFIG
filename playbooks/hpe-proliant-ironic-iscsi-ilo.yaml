@@ -15,8 +15,7 @@
       register: uuid
 
     - name: Running iscsi-ilo
-      shell: bash /tmp/iscsi-ilo/HPE-CI-JOBS/iscsi-ilo/gate.sh uuid.result
+      shell: bash /tmp/iscsi-ilo/HPE-CI-JOBS/iscsi-ilo/gate.sh uuid.results
 
     - name: Deallocating test node
-      shell:  /usr/local/bin/molteniron release uuid.result
-
+      shell:  /usr/local/bin/molteniron release uuid.results
