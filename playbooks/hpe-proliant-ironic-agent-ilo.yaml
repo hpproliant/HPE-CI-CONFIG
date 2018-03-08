@@ -7,15 +7,23 @@
         path: '/tmp/agent-ilo'
         state: directory
 
-    - name: Clonning devstack-gate for agent-ilo
+    - name: Cloning devstack-gate for agent-ilo
       shell: cd /tmp/agent-ilo; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
+
+    - name: Configure molten
+      shell: sudo bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/configure_molten
 
     - name: Generate MoltenIron Id for node
       command: uuidgen
       register: uuid
 
-    - name: Running agent-ilo
-      shell: bash /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/gate.sh {{ uuid.stdout }}
+    - name: Allocating test node
+      command: /tmp/agent-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9
 
-    - name: Deallocating test node
-      shell:  /usr/local/bin/molteniron release {{ uuid.stdout }}
+    - block:
+        - name: Running agent-ilo
+          shell: bash /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/gate.sh
+
+      always:
+        - name: Deallocating test node
+          shell: /tmp/agent-ilo/HPE-CI-JOBS/molteniron/release_molten.py {{ uuid.stdout }}

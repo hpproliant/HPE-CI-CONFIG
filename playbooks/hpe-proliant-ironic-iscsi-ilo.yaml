@@ -7,15 +7,23 @@
         path: '/tmp/iscsi-ilo'
         state: directory
 
-    - name: Clonning devstack-gate for iscsi-ilo
+    - name: Cloning devstack-gate for iscsi-ilo
       shell: cd /tmp/iscsi-ilo; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
+
+    - name: Configure molten
+      shell: sudo bash /tmp/iscsi-ilo/HPE-CI-JOBS/molteniron/configure_molten
 
     - name: Generate MoltenIron Id for node
       command: uuidgen
       register: uuid
 
-    - name: Running iscsi-ilo
-      shell: bash /tmp/iscsi-ilo/HPE-CI-JOBS/iscsi-ilo/gate.sh {{ uuid.stdout }}
+    - name: Allocating test node
+      command: /tmp/iscsi-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen8
 
-    - name: Deallocating test node
-      shell:  /usr/local/bin/molteniron release {{ uuid.stdout }}
+    - block:
+        - name: Running iscsi-ilo
+          shell: bash /tmp/iscsi-ilo/HPE-CI-JOBS/iscsi-ilo/gate.sh
+
+      always:
+        - name: Deallocating test node
+          shell: /tmp/iscsi-ilo/HPE-CI-JOBS/molteniron/release_molten.py {{ uuid.stdout }}
