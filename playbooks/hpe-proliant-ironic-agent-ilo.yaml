@@ -15,7 +15,7 @@
       register: uuid
 
     - name: Running agent-ilo
-      shell: bash /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/gate.sh uuid.stdout
+      shell: bash /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/gate.sh "{{ uuid.stdout }}"
 
     - name: Deallocating test node
-      shell:  /usr/local/bin/molteniron release uuid.stdout
+      shell:  /usr/local/bin/molteniron release "{{ uuid.stdout }}"
