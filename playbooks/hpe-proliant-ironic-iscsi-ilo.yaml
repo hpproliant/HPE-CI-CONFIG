@@ -11,7 +11,7 @@
       shell: cd /tmp/iscsi-ilo; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
 
     - name: Generate MoltenIron Id for node
-      shell : cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1
+      command: uuidgen
       register: uuid
 
     - name: Running iscsi-ilo
