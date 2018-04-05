@@ -52,7 +52,7 @@
           label: cloud
 
 - job:
-    name: hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-pxe-iscsi
+    name: hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-pxe-direct
     description: A job to test agent based driver for HPE Proliant Server
     timeout: 10800
     parent: base
