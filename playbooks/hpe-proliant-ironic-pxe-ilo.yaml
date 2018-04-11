@@ -7,20 +7,20 @@
         path: '/tmp/pxe-ilo'
         state: directory
 
-    - name: Clonning devstack-gate for pxe-ilo
-      shell: cd /tmp/pxe-ilo; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
-
-    - name: Configure molten
-      shell: sudo bash /tmp/pxe-ilo/HPE-CI-JOBS/molteniron/configure_molten
-
-    - name: Generate MoltenIron Id for node
-      command: uuidgen
-      register: uuid
-
-    - name: Allocating test node
-      command: /tmp/pxe-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9
-
     - block:
+        - name: Clonning devstack-gate for pxe-ilo
+          shell: cd /tmp/pxe-ilo; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
+
+        - name: Configure molten
+          shell: sudo bash /tmp/pxe-ilo/HPE-CI-JOBS/molteniron/configure_molten
+
+        - name: Generate MoltenIron Id for node
+          command: uuidgen
+          register: uuid
+
+        - name: Allocating test node
+          command: /tmp/pxe-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9
+
         - name: Running pxe-ilo
           shell: bash /tmp/pxe-ilo/HPE-CI-JOBS/pxe-ilo/gate.sh
 
