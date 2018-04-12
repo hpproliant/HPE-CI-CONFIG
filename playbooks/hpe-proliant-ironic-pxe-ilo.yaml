@@ -19,7 +19,7 @@
           register: uuid
 
         - name: Allocating test node
-          command: /tmp/pxe-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9
+          command: /tmp/pxe-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9_pxe
 
         - name: Running pxe-ilo
           shell: bash /tmp/pxe-ilo/HPE-CI-JOBS/pxe-ilo/gate.sh
