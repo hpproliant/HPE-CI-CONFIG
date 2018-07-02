@@ -39,7 +39,25 @@
               sshpass -p zuul12iso*help ssh -o StrictHostKeyChecking=no zuul@10.13.120.214 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
               sshpass -p zuul12iso*help ssh -o StrictHostKeyChecking=no zuul@10.13.120.214 "sudo chmod -R 0777 /tmp; sudo chown -R zuul.zuul /tmp"
               sshpass -p zuul12iso*help scp -o StrictHostKeyChecking=no -r zuul@10.13.120.214:{{ zuul.executor.log_root }} /tmp/new_zuul/
-          
+              sudo journalctl -u devstack@dstat.service >>/tmp/dstat.service 2>/dev/null
+              sudo journalctl -u devstack@etcd.service >>/tmp/etcd.service 2>/dev/null
+              sudo journalctl -u devstack@g-api.service >>/tmp/g-api.service 2>/dev/null
+              sudo journalctl -u devstack@g-reg.service >>/tmp/g-reg.service 2>/dev/null
+              sudo journalctl -u devstack@ir-api.service >>/tmp/ir-api.service 2>/dev/null
+              sudo journalctl -u devstack@ir-cond.service >>/tmp/ir-cond.service 2>/dev/null
+              sudo journalctl -u devstack@keystone.service >>/tmp/keystone.service 2>/dev/null
+              sudo journalctl -u devstack@q-l3.service >>/tmp/q-l3.service 2>/dev/null
+              sudo journalctl -u devstack@q-agt.service >>/tmp/q-agt.service 2>/dev/null
+              sudo journalctl -u devstack@q-dhcp.service >>/tmp/q-dhcp.service 2>/dev/null
+              sudo journalctl -u devstack@q-meta.service >>/tmp/q-meta.service 2>/dev/null
+              sudo journalctl -u devstack@s-account.service >>/tmp/s-account.service 2>/dev/null
+              sudo journalctl -u devstack@q-svc.service >>/tmp/q-svc.service 2>/dev/null
+              sudo journalctl -u devstack@s-container-sync.service >>/tmp/s-container-sync.service 2>/dev/null
+              sudo journalctl -u devstack@s-container.service >>/tmp/s-container.service 2>/dev/null
+              sudo journalctl -u devstack@s-object.service >>/tmp/s-object.service 2>/dev/null
+              sudo journalctl -u devstack@s-proxy.service >>/tmp/s-proxy.service 2>/dev/null
+              sshpass -p ubuntu scp -o StrictHostKeyChecking=no /tmp/*.service ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/ 2>/dev/null
+
               if [ -d /tmp/new_zuul ]; then
                  echo "Pasting log path"
                  sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/new_zuul/* ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/
