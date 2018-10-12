@@ -6,7 +6,7 @@
     post-run: playbooks/post-logs.yaml
 
 - job:
-    name: hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct
+    name: hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct-python3
     description: A job to test agent based driver for HPE Proliant Server
     timeout: 10800
     parent: base
@@ -29,7 +29,7 @@
           label: cloud
 
 - job:
-    name: hpe-gen8-dsvm-ironic-standalone-wholedisk-bios-ilo-virtual-media-iscsi
+    name: hpe-gen8-dsvm-ironic-standalone-wholedisk-bios-ilo-virtual-media-iscsi-python3
     description: A job to test agent based driver for HPE Proliant Server
     timeout: 10800
     parent: base
@@ -52,7 +52,7 @@
           label: cloud
 
 - job:
-    name: hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-pxe-direct
+    name: hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-pxe-direct-python3
     description: A job to test agent based driver for HPE Proliant Server
     timeout: 10800
     parent: base
@@ -75,7 +75,7 @@
           label: cloud
 
 - job:
-    name: hpe-gen10-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct
+    name: hpe-gen10-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct-python2
     description: A job to test redfish based driver for HPE Proliant Server
     timeout: 10800
     parent: base

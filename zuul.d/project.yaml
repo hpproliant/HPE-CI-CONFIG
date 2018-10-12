@@ -2,7 +2,7 @@
     name: openstack/ironic
     check:
       jobs:
-        - hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct
-        - hpe-gen8-dsvm-ironic-standalone-wholedisk-bios-ilo-virtual-media-iscsi
-        - hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-pxe-direct
-        - hpe-gen10-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct
+        - hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct-python3
+        - hpe-gen8-dsvm-ironic-standalone-wholedisk-bios-ilo-virtual-media-iscsi-python3
+        - hpe-gen9-dsvm-ironic-standalone-wholedisk-uefi-ilo-pxe-direct-python3
+        - hpe-gen10-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct-python2
