@@ -1,0 +1,29 @@
+- hosts: all
+  name: HPE Proliant redfish pxe driver job
+  tasks:
+
+    - name: Create workspace directory to run redfish-pxe-driver
+      file:
+        path: '/tmp/redfish-pxe-driver'
+        state: directory
+
+    - block:
+        - name: Cloning devstack-gate for redfish-driver
+          shell: cd /tmp/redfish-pxe-driver; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
+
+        - name: Configure molten
+          shell: sudo bash /tmp/redfish-pxe-driver/HPE-CI-JOBS/molteniron/configure_molten
+
+        - name: Generate MoltenIron Id for node
+          command: uuidgen
+          register: uuid
+
+        - name: Allocating test node
+          command: /tmp/redfish-pxe-driver/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen10
+
+        - name: Running redfish-driver
+          shell: bash /tmp/redfish-pxe-driver/HPE-CI-JOBS/redfish-pxe-driver/gate.sh
+
+      always:
+        - name: Deallocating test node
+          shell: /tmp/redfish-pxe-driver/HPE-CI-JOBS/molteniron/release_molten.py {{ uuid.stdout }}
