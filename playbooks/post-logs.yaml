@@ -35,10 +35,10 @@
         - name: Preparing logs
           copy:
             content: |
-              sshpass -p ubuntu ssh -o StrictHostKeyChecking=no ubuntu@10.13.120.208 "mkdir -p /var/www/logs/{{ log_path }}/"
-              sshpass -p zuul12iso*help ssh -o StrictHostKeyChecking=no zuul@10.13.120.214 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
-              sshpass -p zuul12iso*help ssh -o StrictHostKeyChecking=no zuul@10.13.120.214 "sudo chmod -R 0777 /tmp; sudo chown -R zuul.zuul /tmp"
-              sshpass -p zuul12iso*help scp -o StrictHostKeyChecking=no -r zuul@10.13.120.214:{{ zuul.executor.log_root }} /tmp/new_zuul/
+              ssh -i /home/ubuntu/log_server_id_rsa -o StrictHostKeyChecking=no ubuntu@10.13.120.208 "mkdir -p /var/www/logs/{{ log_path }}/"
+              ssh -i /home/ubuntu/id_rsa -o StrictHostKeyChecking=no zuul@10.13.120.214 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
+              ssh -i /home/ubuntu/id_rsa -o StrictHostKeyChecking=no zuul@10.13.120.214 "sudo chmod -R 0777 /tmp; sudo chown -R zuul.zuul /tmp"
+              scp -i /home/ubuntu/id_rsa -o StrictHostKeyChecking=no -r zuul@10.13.120.214:{{ zuul.executor.log_root }} /tmp/new_zuul/
               sudo journalctl -u devstack@dstat.service >>/tmp/dstat.service 2>/dev/null
               sudo journalctl -u devstack@etcd.service >>/tmp/etcd.service 2>/dev/null
               sudo journalctl -u devstack@g-api.service >>/tmp/g-api.service 2>/dev/null
