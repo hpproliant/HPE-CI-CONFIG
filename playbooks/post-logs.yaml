@@ -58,16 +58,16 @@
               sudo journalctl -u devstack@s-proxy.service >>/tmp/s-proxy.service 2>/dev/null
               mkdir -p /tmp/new_zuul/etc
               sudo cp -r /etc/glance/ /etc/ironic/ /etc/keystone /etc/neutron /etc/nova /etc/swift /tmp/new_zuul/etc/
-              sshpass -p ubuntu scp -o StrictHostKeyChecking=no /tmp/*.service ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/ 2>/dev/null
+              scp -i /home/ubuntu/log_server_id_rsa -o StrictHostKeyChecking=no /tmp/*.service ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/ 2>/dev/null
 
               if [ -d /tmp/new_zuul ]; then
                  echo "Pasting log path"
-                 sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/new_zuul/* ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/
+                 scp -i /home/ubuntu/log_server_id_rsa -o StrictHostKeyChecking=no -r /tmp/new_zuul/* ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/
               fi
               if [ -d /tmp/devstack_logs/ ]; then
-                 sshpass -p ubuntu scp -o StrictHostKeyChecking=no -r /tmp/devstack_logs/ ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/
+                 scp -i /home/ubuntu/log_server_id_rsa -o StrictHostKeyChecking=no -r /tmp/devstack_logs/ ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/
               fi
-              sshpass -p ubuntu scp -o StrictHostKeyChecking=no /opt/stack/devstack/local.conf ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/local.conf
+              scp -i /home/ubuntu/log_server_id_rsa -o StrictHostKeyChecking=no /opt/stack/devstack/local.conf ubuntu@10.13.120.208:/var/www/logs/{{ log_path }}/local.conf
             dest: "{{ tmpe.path }}"
             mode: 0777
           no_log: true
