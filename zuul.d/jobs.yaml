@@ -74,48 +74,48 @@
         - name: ubuntu
           label: cloud
 
-- job:
-    name: hpe-gen10-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct-python3
-    description: A job to test redfish based driver for HPE Proliant Server
-    timeout: 10800
-    parent: base
-    irrelevant-files:
-      - ^(test-|driver-)requirements.txt$
-      - ^.*\.rst$
-      - ^api-ref/.*$
-      - ^doc/.*$
-      - ^install-guide/.*$
-      - ^ironic/locale/.*$
-      - ^ironic/tests/.*$
-      - ^releasenotes/.*$
-      - ^setup.cfg$
-      - ^tools/.*$
-      - ^tox.ini$
-    run: playbooks/hpe-proliant-ironic-redfish-driver.yaml
-    nodeset:
-      nodes:
-        - name: ubuntu
-          label: cloud
-
-- job:
-    name: hpe-gen10-dsvm-ironic-standalone-wholedisk-uefi-redfish-pxe-python3
-    description: A job to test redfish pxe based driver for HPE Proliant Server
-    timeout: 10800
-    parent: base
-    irrelevant-files:
-      - ^(test-|driver-)requirements.txt$
-      - ^.*\.rst$
-      - ^api-ref/.*$
-      - ^doc/.*$
-      - ^install-guide/.*$
-      - ^ironic/locale/.*$
-      - ^ironic/tests/.*$
-      - ^releasenotes/.*$
-      - ^setup.cfg$
-      - ^tools/.*$
-      - ^tox.ini$
-    run: playbooks/hpe-proliant-ironic-redfish-pxe-driver.yaml
-    nodeset:
-      nodes:
-        - name: ubuntu
-          label: cloud
+#- job:
+#    name: hpe-gen10-dsvm-ironic-standalone-wholedisk-uefi-ilo-virtual-media-direct-python3
+#    description: A job to test redfish based driver for HPE Proliant Server
+#    timeout: 10800
+#    parent: base
+#    irrelevant-files:
+#      - ^(test-|driver-)requirements.txt$
+#      - ^.*\.rst$
+#      - ^api-ref/.*$
+#      - ^doc/.*$
+#      - ^install-guide/.*$
+#      - ^ironic/locale/.*$
+#      - ^ironic/tests/.*$
+#      - ^releasenotes/.*$
+#      - ^setup.cfg$
+#      - ^tools/.*$
+#      - ^tox.ini$
+#    run: playbooks/hpe-proliant-ironic-redfish-driver.yaml
+#    nodeset:
+#      nodes:
+#        - name: ubuntu
+#          label: cloud
+#
+#- job:
+#    name: hpe-gen10-dsvm-ironic-standalone-wholedisk-uefi-redfish-pxe-python3
+#    description: A job to test redfish pxe based driver for HPE Proliant Server
+#    timeout: 10800
+#    parent: base
+#    irrelevant-files:
+#      - ^(test-|driver-)requirements.txt$
+#      - ^.*\.rst$
+#      - ^api-ref/.*$
+#      - ^doc/.*$
+#      - ^install-guide/.*$
+#      - ^ironic/locale/.*$
+#      - ^ironic/tests/.*$
+#      - ^releasenotes/.*$
+#      - ^setup.cfg$
+#      - ^tools/.*$
+#      - ^tox.ini$
+#    run: playbooks/hpe-proliant-ironic-redfish-pxe-driver.yaml
+#    nodeset:
+#      nodes:
+#        - name: ubuntu
+#          label: cloud
