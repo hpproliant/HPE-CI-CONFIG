@@ -22,7 +22,7 @@
           command: /tmp/agent-ilo/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9
 
         - name: Running agent-ilo
-          shell: bash /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/gate.sh
+          shell: /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/gate.sh
 
       always:
         - name: Deallocating test node
