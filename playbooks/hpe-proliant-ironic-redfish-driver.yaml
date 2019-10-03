@@ -11,15 +11,15 @@
         - name: Cloning devstack-gate for redfish-driver
           shell: cd /tmp/redfish-driver; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
 
-        - name: Configure molten
-          shell: sudo bash /tmp/redfish-driver/HPE-CI-JOBS/molteniron/configure_molten
+          #- name: Configure molten
+          #shell: sudo bash /tmp/redfish-driver/HPE-CI-JOBS/molteniron/configure_molten
 
-        - name: Generate MoltenIron Id for node
-          command: uuidgen
-          register: uuid
+          #- name: Generate MoltenIron Id for node
+          #command: uuidgen
+          #register: uuid
 
-        - name: Allocating test node
-          command: /tmp/redfish-driver/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen10
+          #- name: Allocating test node
+          #command: /tmp/redfish-driver/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen10
 
         - name: Running redfish-driver
           shell: bash /tmp/redfish-driver/HPE-CI-JOBS/redfish-driver/gate.sh
