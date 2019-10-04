@@ -65,11 +65,10 @@
               echo "commiting logs"
               cd /tmp
               export GIT_SSH_COMMAND="ssh -i ~/log_upload_ssh"
-              git clone https://github.com/hpproliant/HPE-CI-JOBS.git
               git clone git@github.com:hpproliant/hpeproliant.github.io.git
               cp -R /tmp/new_zuul/ /tmp/hpproliant.github.io/logs/{{ log_path }}
               cd /tmp/hpproliant.github.io
-              python /tmp/HPE-CI-JOBS/log-scripts/logs2html.py .
+              python logs2html.py .
               git config user.email "proliantutils@gmail.com"
               git config user.name hpproliant
               git add .
@@ -89,4 +88,4 @@
           zuul_return:
             data:
              zuul:
-                log_url: "https://hpproliant.github.io/hpeproliant.github.io/logs/{{ log_path }}/"
+                log_url: "https://hpproliant.github.io/hpeproliant.github.io/logs/{{ log_path }}/{{ zuul.build[:7] }}.html"
