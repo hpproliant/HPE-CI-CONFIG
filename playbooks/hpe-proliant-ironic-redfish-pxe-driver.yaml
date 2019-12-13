@@ -19,7 +19,7 @@
           register: uuid
 
         - name: Allocating test node
-          command: /tmp/redfish-pxe-driver/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen10
+          command: /tmp/redfish-pxe-driver/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Redfish
 
         - name: Running redfish-driver
           shell: bash /tmp/redfish-pxe-driver/HPE-CI-JOBS/redfish-pxe-driver/gate.sh
