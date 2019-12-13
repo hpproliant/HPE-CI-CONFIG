@@ -37,7 +37,7 @@
             content: |
               ssh -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no zuul@169.16.1.54 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
               ssh -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no zuul@169.16.1.54 "sudo chmod -R 0777 /tmp; sudo chown -R zuul.zuul /tmp"
-              scp -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no -r zuul@172.17.1.171:{{ zuul.executor.log_root }} /tmp/new_zuul/
+              scp -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no -r zuul@169.16.1.54:{{ zuul.executor.log_root }} /tmp/new_zuul/
               sudo journalctl -u devstack@dstat.service >>/tmp/new_zuul/dstat.service 2>/dev/null
               sudo journalctl -u devstack@etcd.service >>/tmp/new_zuul/etcd.service 2>/dev/null
               sudo journalctl -u devstack@g-api.service >>/tmp/new_zuul/g-api.service 2>/dev/null
