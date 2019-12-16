@@ -56,7 +56,7 @@
               sudo journalctl -u devstack@s-object.service >>/tmp/new_zuul/s-object.service 2>/dev/null
               sudo journalctl -u devstack@s-proxy.service >>/tmp/new_zuul/s-proxy.service 2>/dev/null
               mkdir -p /tmp/new_zuul/etc
-              sudo cp -r /etc/glance/ /etc/ironic/ /etc/keystone /etc/neutron /etc/nova /etc/swift /tmp/new_zuul/etc/
+              sudo cp -r /etc/glance/ /etc/ironic/ /etc/keystone /etc/neutron /etc/swift /tmp/new_zuul/etc/
               sudo cp /opt/stack/tempest/etc/tempest.conf /tmp/new_zuul/etc/
               if [ -d /tmp/devstack_logs/ ]; then
                  mv /tmp/devstack_logs /tmp/new_zuul/
@@ -66,8 +66,10 @@
               cd /tmp
               export GIT_SSH_COMMAND="ssh -i ~/log_upload_ssh"
               git clone git@github.com:hpproliant/hpeproliant.github.io.git
-              cp -R /tmp/new_zuul/ /tmp/hpproliant.github.io/logs/{{ log_path }}
-              cd /tmp/hpproliant.github.io
+              ls hpeproliant.github.io
+              mkdir -p /tmp/hpeproliant.github.io/logs/{{ log_path }}
+              cp -R /tmp/new_zuul/ /tmp/hpeproliant.github.io/logs/{{ log_path }}
+              cd /tmp/hpeproliant.github.io
               python logs2html.py .
               git config user.email "proliantutils@gmail.com"
               git config user.name hpproliant
