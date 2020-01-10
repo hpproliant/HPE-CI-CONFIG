@@ -70,7 +70,7 @@
               mkdir -p /tmp/hpeproliant.github.io/logs/{{ log_path }}
               cp -R /tmp/new_zuul/ /tmp/hpeproliant.github.io/logs/{{ log_path }}
               cd /tmp/hpeproliant.github.io
-              python logs2html.py .
+              python logs2html.py /tmp/hpeproliant.github.io
               git config user.email "proliantutils@gmail.com"
               git config user.name hpproliant
               git add .
