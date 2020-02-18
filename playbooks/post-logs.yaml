@@ -64,8 +64,8 @@
               fi
               echo "commiting logs"
               cd /tmp
-              export GIT_SSH_COMMAND="ssh -i ~/log_upload_ssh"
-              git clone https://github.com/hpproliant/hpeproliant.github.io.git
+              export GIT_SSH_COMMAND="ssh -i ~/zuul_id_rsa"
+              git clone git@github.com:hpproliant/hpeproliant.github.io.git
               ls hpeproliant.github.io
               mkdir -p /tmp/hpeproliant.github.io/logs/{{ log_path }}
               cp -R /tmp/new_zuul/ /tmp/hpeproliant.github.io/logs/{{ log_path }}
