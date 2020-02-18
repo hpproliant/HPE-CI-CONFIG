@@ -67,15 +67,27 @@
               export GIT_SSH_COMMAND="ssh -i ~/zuul_id_rsa"
               git clone git@github.com:hpproliant/hpeproliant.github.io.git
               ls hpeproliant.github.io
-              mkdir -p /tmp/hpeproliant.github.io/logs/{{ log_path }}
-              cp -R /tmp/new_zuul/ /tmp/hpeproliant.github.io/logs/{{ log_path }}
-              cd /tmp/hpeproliant.github.io
-              python logs2html.py /tmp/hpeproliant.github.io
-              git config user.email "proliantutils@gmail.com"
-              git config user.name hpproliant
-              git add .
-              git commit -m "Commited {{ log_path }}"
-              git push
+              count=0
+              while [ $count -lt 5 ] ; do
+                echo "Refresh log repository"
+                cd /tmp/hpeproliant.github.io
+                git checkout .
+                git pull
+                mkdir -p /tmp/hpeproliant.github.io/logs/{{ log_path }}
+                cp -R /tmp/new_zuul/ /tmp/hpeproliant.github.io/logs/{{ log_path }}
+                python logs2html.py /tmp/hpeproliant.github.io
+                git config user.email "proliantutils@gmail.com"
+                git config user.name hpproliant
+                git add .
+                git commit -m "Commited {{ log_path }}"
+                git push
+                if [ $? -eq 0 ]; then
+                  break
+                fi
+                let count=count+1
+                sleep 30
+                sleep $((1 + RANDOM % 60))
+              done
 
             dest: "{{ tmpe.path }}"
             mode: 0777
