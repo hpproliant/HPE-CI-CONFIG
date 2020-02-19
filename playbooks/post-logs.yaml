@@ -25,42 +25,43 @@
 
     - name: Create log directory
       file:
-         path: /tmp/new_zuul
+         path: /tmp/controller
          state: directory
          owner: ubuntu
          group: ubuntu
-         mode: 0775     
+         mode: 0775
 
     - block:
         - name: Preparing logs
           copy:
             content: |
+              mkdir /tmp/controller/logs
               ssh -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no zuul@169.16.1.54 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
               ssh -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no zuul@169.16.1.54 "sudo chmod -R 0777 /tmp; sudo chown -R zuul.zuul /tmp"
-              scp -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no -r zuul@169.16.1.54:{{ zuul.executor.log_root }} /tmp/new_zuul/
-              sudo journalctl -u devstack@dstat.service >>/tmp/new_zuul/dstat.service 2>/dev/null
-              sudo journalctl -u devstack@etcd.service >>/tmp/new_zuul/etcd.service 2>/dev/null
-              sudo journalctl -u devstack@g-api.service >>/tmp/new_zuul/g-api.service 2>/dev/null
-              sudo journalctl -u devstack@g-reg.service >>/tmp/new_zuul/g-reg.service 2>/dev/null
-              sudo journalctl -u devstack@ir-api.service >>/tmp/new_zuul/ir-api.service 2>/dev/null
-              sudo journalctl -u devstack@ir-cond.service >>/tmp/new_zuul/ir-cond.service 2>/dev/null
-              sudo journalctl -u devstack@keystone.service >>/tmp/new_zuul/keystone.service 2>/dev/null
-              sudo journalctl -u devstack@q-l3.service >>/tmp/new_zuul/q-l3.service 2>/dev/null
-              sudo journalctl -u devstack@q-agt.service >>/tmp/new_zuul/q-agt.service 2>/dev/null
-              sudo journalctl -u devstack@q-dhcp.service >>/tmp/new_zuul/q-dhcp.service 2>/dev/null
-              sudo journalctl -u devstack@q-meta.service >>/tmp/new_zuul/q-meta.service 2>/dev/null
-              sudo journalctl -u devstack@s-account.service >>/tmp/new_zuul/s-account.service 2>/dev/null
-              sudo journalctl -u devstack@q-svc.service >>/tmp/new_zuul/q-svc.service 2>/dev/null
-              sudo journalctl -u devstack@s-container-sync.service >>/tmp/new_zuul/s-container-sync.service 2>/dev/null
-              sudo journalctl -u devstack@s-container.service >>/tmp/new_zuul/s-container.service 2>/dev/null
-              sudo journalctl -u devstack@s-object.service >>/tmp/new_zuul/s-object.service 2>/dev/null
-              sudo journalctl -u devstack@s-proxy.service >>/tmp/new_zuul/s-proxy.service 2>/dev/null
-              mkdir -p /tmp/new_zuul/etc
-              sudo cp -r /etc/glance/ /etc/ironic/ /etc/keystone /etc/neutron /etc/swift /tmp/new_zuul/etc/
-              sudo cp /opt/stack/tempest/etc/tempest.conf /tmp/new_zuul/etc/
+              scp -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no -r zuul@169.16.1.54:{{ zuul.executor.log_root }} /tmp/job_logs
+              sudo journalctl -u devstack@dstat.service >>/tmp/controller/logs/dstat.service 2>/dev/null
+              sudo journalctl -u devstack@etcd.service >>/tmp/controller/logs/etcd.service 2>/dev/null
+              sudo journalctl -u devstack@g-api.service >>/tmp/controller/logs/g-api.service 2>/dev/null
+              sudo journalctl -u devstack@g-reg.service >>/tmp/controller/logs/g-reg.service 2>/dev/null
+              sudo journalctl -u devstack@ir-api.service >>/tmp/controller/logs/ir-api.service 2>/dev/null
+              sudo journalctl -u devstack@ir-cond.service >>/tmp/controller/logs/ir-cond.service 2>/dev/null
+              sudo journalctl -u devstack@keystone.service >>/tmp/controller/logs/keystone.service 2>/dev/null
+              sudo journalctl -u devstack@q-l3.service >>/tmp/controller/logs/q-l3.service 2>/dev/null
+              sudo journalctl -u devstack@q-agt.service >>/tmp/controller/logs/q-agt.service 2>/dev/null
+              sudo journalctl -u devstack@q-dhcp.service >>/tmp/controller/logs/q-dhcp.service 2>/dev/null
+              sudo journalctl -u devstack@q-meta.service >>/tmp/controller/logs/q-meta.service 2>/dev/null
+              sudo journalctl -u devstack@s-account.service >>/tmp/controller/logs/s-account.service 2>/dev/null
+              sudo journalctl -u devstack@q-svc.service >>/tmp/controller/logs/q-svc.service 2>/dev/null
+              sudo journalctl -u devstack@s-container-sync.service >>/tmp/controller/logs/s-container-sync.service 2>/dev/null
+              sudo journalctl -u devstack@s-container.service >>/tmp/controller/logs/s-container.service 2>/dev/null
+              sudo journalctl -u devstack@s-object.service >>/tmp/controller/logs/s-object.service 2>/dev/null
+              sudo journalctl -u devstack@s-proxy.service >>/tmp/controller/logs/s-proxy.service 2>/dev/null
+              mkdir -p /tmp/controller/logs/etc
+              sudo cp -r /etc/glance/ /etc/ironic/ /etc/keystone /etc/neutron /etc/swift /tmp/controller/logs/etc/
+              sudo cp /opt/stack/tempest/etc/tempest.conf /tmp/controller/logs/etc/
               if [ -d /tmp/devstack_logs/ ]; then
-                 mv /tmp/devstack_logs /tmp/new_zuul/
-                 sudo cp /opt/stack/devstack/local.conf /tmp/new_zuul/devstack_logs
+                 mv /tmp/devstack_logs /tmp/controller/logs/
+                 sudo cp /opt/stack/devstack/local.conf /tmp/controller/logs/devstack_logs
               fi
               echo "commiting logs"
               cd /tmp
@@ -74,7 +75,7 @@
                 git checkout .
                 git pull
                 mkdir -p /tmp/hpeproliant.github.io/logs/{{ log_path }}
-                cp -R /tmp/new_zuul/ /tmp/hpeproliant.github.io/logs/{{ log_path }}
+                cp -R /tmp/controller/ /tmp/job_logs/* /tmp/hpeproliant.github.io/logs/{{ log_path }}
                 python logs2html.py /tmp/hpeproliant.github.io
                 git config user.email "proliantutils@gmail.com"
                 git config user.name hpproliant
