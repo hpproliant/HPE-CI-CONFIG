@@ -11,6 +11,9 @@
         - name: Clonning devstack-gate for pxe-ilo
           shell: cd /tmp/pxe-ilo; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
 
+        - name: Preparing gate
+          shell: bash /tmp/pxe-ilo/HPE-CI-JOBS/pxe-ilo/prepare_gate.sh
+
         - name: Configure molten
           shell: sudo bash /tmp/pxe-ilo/HPE-CI-JOBS/molteniron/configure_molten
 

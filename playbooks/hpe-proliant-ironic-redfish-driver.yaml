@@ -11,6 +11,9 @@
         - name: Cloning devstack-gate for redfish-driver
           shell: cd /tmp/redfish-driver; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
 
+        - name: Preparing gate
+          shell: bash /tmp/redfish-driver/HPE-CI-JOBS/redfish-driver/prepare_gate.sh
+
         - name: Configure molten
           shell: sudo bash /tmp/redfish-driver/HPE-CI-JOBS/molteniron/configure_molten
 

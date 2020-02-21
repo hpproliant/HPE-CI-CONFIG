@@ -11,6 +11,9 @@
         - name: Cloning devstack-gate for agent-ilo
           shell: cd /tmp/agent-ilo; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
 
+        - name: Preparing gate
+          shell: /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/prepare_gate.sh
+
         - name: Configure molten
           shell: sudo bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/configure_molten
 
