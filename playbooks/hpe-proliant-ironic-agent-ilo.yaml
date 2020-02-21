@@ -14,6 +14,9 @@
         - name: Preparing gate
           shell: /tmp/agent-ilo/HPE-CI-JOBS/agent-ilo/prepare_gate.sh
 
+        - name: Cherry pick
+          shell: cd /opt/stack/ironic; git config --global user.email "proliantutils@gmail.com"; git config --global user.name "proliantci"; git fetch https://review.opendev.org/openstack/ironic {{zuul.ref}} && git cherry-pick FETCH_HEAD
+
         - name: Configure molten
           shell: sudo bash /tmp/agent-ilo/HPE-CI-JOBS/molteniron/configure_molten
 
