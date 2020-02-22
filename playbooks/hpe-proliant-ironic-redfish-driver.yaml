@@ -11,11 +11,14 @@
         - name: Cloning devstack-gate for redfish-driver
           shell: cd /tmp/redfish-driver; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
 
-        - name: Preparing gate
-          shell: bash /tmp/redfish-driver/HPE-CI-JOBS/redfish-driver/prepare_gate.sh
+        - name: Clone Projects
+          shell: /tmp/redfish-driver/HPE-CI-JOBS/clone_project.sh
 
         - name: Cherry pick
           shell: cd /opt/stack/ironic; git config --global user.email "proliantutils@gmail.com"; git config --global user.name "proliantci"; git fetch https://review.opendev.org/openstack/ironic {{zuul.ref}} && git cherry-pick FETCH_HEAD
+
+        - name: Preparing gate
+          shell: bash /tmp/redfish-driver/HPE-CI-JOBS/redfish-driver/prepare_gate.sh
 
         - name: Configure molten
           shell: sudo bash /tmp/redfish-driver/HPE-CI-JOBS/molteniron/configure_molten
