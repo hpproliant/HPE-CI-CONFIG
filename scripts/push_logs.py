@@ -2,7 +2,6 @@ import os
 import time
 
 
-import pdb; pdb.set_trace()
 log_list = []
 path = '/home/ironman-build/hpeironicci_incoming_logs'
 log_repo = '/home/ironman-build/hpeproliant.github.io'
