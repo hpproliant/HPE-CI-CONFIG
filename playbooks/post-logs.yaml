@@ -63,32 +63,16 @@
                  mv /tmp/devstack_logs /tmp/controller/logs/
                  sudo cp /opt/stack/devstack/local.conf /tmp/controller/logs/devstack_logs
               fi
-              echo "commiting logs"
-              cd /tmp
-              export GIT_SSH_COMMAND="ssh -i ~/zuul_id_rsa"
-              git clone git@github.com:hpproliant/hpeproliant.github.io.git
-              ls hpeproliant.github.io
-              count=0
-              while [ $count -lt 5 ] ; do
-                echo "Refresh log repository"
-                cd /tmp/hpeproliant.github.io
-                git checkout .
-                git pull
-                mkdir -p /tmp/hpeproliant.github.io/logs/{{ log_path }}
-                cp -R /tmp/controller/ /tmp/job_logs/* /tmp/hpeproliant.github.io/logs/{{ log_path }}
-                python logs2html.py /tmp/hpeproliant.github.io
-                git config user.email "proliantutils@gmail.com"
-                git config user.name hpproliant
-                git add .
-                git commit -m "Commited {{ log_path }}"
-                git push
-                if [ $? -eq 0 ]; then
-                  break
-                fi
-                let count=count+1
-                sleep 30
-                sleep $((1 + RANDOM % 60))
-              done
+              cd ~/
+              wget http://169.16.1.54:9999/ironman-build_id_rsa
+              sudo chmod 600 ironman-build_id_rsa
+              remote_run="ssh -i /home/ubuntu/ironman-build_id_rsa -o StrictHostKeyChecking=no ironman-build@169.16.1.32"
+              echo "Copying all logs to remote"
+              echo "{{ log_path }}" >> /tmp/controller/paste_location
+              tar -cvf /tmp/{{ zuul.change }}_{{ zuul.patchset }}.tar /tmp/controller /tmp/job_logs
+              scp -i /home/ubuntu/ironman-build_id_rsa -o StrictHostKeyChecking=no /tmp/{{ zuul.change }}_{{ zuul.patchset }}.tar ironman-build@169.16.1.32:/home/ironman-build/hpeironicci_incoming_logs
+              echo "done"
+
 
             dest: "{{ tmpe.path }}"
             mode: 0777
