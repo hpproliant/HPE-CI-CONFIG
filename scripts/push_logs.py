@@ -23,15 +23,15 @@ while True:
             path, log_repo, paste_path))
         os.system('cp -r {}/tmp/job_logs/* {}/logs/{}'.format(
             path, log_repo, paste_path))
-#        print('Keeping only last 3 patchsets')
-#        current_change, current_patchset = i.split('.tar')[0].split('_')
-#        patchset_list = os.listdir('{}/logs/{}/{}'.format(
-#            log_repo, current_change[-2:], current_change))
-#        patchset_list = [int(x) for x in patchset_list if '.html' not in x]
-#        patchset_list.sort()
-#        for j in patchset_list[:-3]:
-#            os.system('rm -rf {}/logs/{}/{}/{}'.format(
-#                log_repo, current_change[:-2], current_change, j))
+        print('Keeping only last 3 patchsets')
+        current_change, current_patchset = i.split('.tar')[0].split('_')
+        patchset_list = os.listdir('{}/logs/{}/{}'.format(
+            log_repo, current_change[-2:], current_change))
+        patchset_list = [int(x) for x in patchset_list if '.html' not in x]
+        patchset_list.sort()
+        for j in patchset_list[:-3]:
+            os.system('rm -rf {}/logs/{}/{}/{}'.format(
+                log_repo, current_change[:-2], current_change, j))
         print("Creating all directory htmls")
         os.remove('{}/logs/{}/controller/paste_location'.format(log_repo, paste_path))
         os.system('python {}/logs2html.py {}'.format(log_repo, log_repo))
