@@ -12,7 +12,10 @@ while True:
         i = log_list.pop()
         print("Found {}. Extracting....".format(i))
         os.chdir(path)
-        os.system('tar -xvf {}/{}'.format(path, i))
+        err_code = os.system('tar -xvf {}/{}'.format(path, i))
+        if err_code != 0:
+            log_list.append(i)
+            break
         print('Paste logs in the repo')
         paste_path = ''
         with open('{}/tmp/controller/paste_location'.format(path)) as f:
