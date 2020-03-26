@@ -70,8 +70,8 @@
               remote_run="ssh -i /home/ubuntu/ironman-build_id_rsa -o StrictHostKeyChecking=no ironman-build@169.16.1.32"
               echo "Copying all logs to remote"
               echo "{{ log_path }}" >> /tmp/controller/paste_location
-              tar -cvf /tmp/{{ zuul.change }}_{{ zuul.patchset }}.tar /tmp/controller /tmp/job_logs
-              scp -i /home/ubuntu/ironman-build_id_rsa -o StrictHostKeyChecking=no /tmp/{{ zuul.change }}_{{ zuul.patchset }}.tar ironman-build@169.16.1.32:/home/ironman-build/hpeironicci_incoming_logs
+              tar -cvf /tmp/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar /tmp/controller /tmp/job_logs
+              scp -i /home/ubuntu/ironman-build_id_rsa -o StrictHostKeyChecking=no /tmp/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar ironman-build@169.16.1.32:/home/ironman-build/hpeironicci_incoming_logs
               echo "done"
 
 
