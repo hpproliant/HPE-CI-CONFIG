@@ -24,10 +24,10 @@ while True:
         os.system('mkdir -p {}/logs/{}'.format(log_repo, paste_path))
         os.system('cp -r {}/tmp/controller {}/logs/{}'.format(
             path, log_repo, paste_path))
-        os.system('cp -r {}/tmp/job_logs/* {}/logs/{}'.format(
+        os.system('cp {}/tmp/job_logs/job-output.json {}/logs/{}'.format(
             path, log_repo, paste_path))
         print('Keeping only last 3 patchsets')
-        current_change, current_patchset = i.split('.tar')[0].split('_')
+        current_change = i.split('_')[0]
         patchset_list = os.listdir('{}/logs/{}/{}'.format(
             log_repo, current_change[-2:], current_change))
         patchset_list = [int(x) for x in patchset_list if '.html' not in x]

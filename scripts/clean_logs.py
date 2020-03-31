@@ -3,7 +3,7 @@ import shutil
 import time
 
 
-os.system('find /home/ironman-build/hpeproliant.github.io -name job-output.txt > /home/ironman-build/hpeproliant.github.io_job-output')
+os.system('find /home/ironman-build/hpeproliant.github.io -name job-output.json > /home/ironman-build/hpeproliant.github.io_job-output')
 with open('/home/ironman-build/hpeproliant.github.io_job-output', 'r') as f:
     line = f.readline().strip()
     while(line):
