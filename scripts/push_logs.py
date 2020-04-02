@@ -34,7 +34,7 @@ while True:
         dir_content = os.listdir('{}/logs/{}'.format(log_repo, paste_path))
         print(dir_content)
         for del_file in dir_content:
-            if '.xz' not in del_file or 'job-output.json' not in del_file:
+            if '.xz' not in del_file and 'job-output.json' not in del_file:
                 os.system('rm -rf {}/logs/{}/{}'.format(
                     log_repo, paste_path, del_file))
         print('Keeping only last 3 patchsets')
