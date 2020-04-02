@@ -20,12 +20,23 @@ while True:
         paste_path = ''
         with open('{}/tmp/controller/paste_location'.format(path)) as f:
             paste_path = f.readline().strip()
+        os.remove('{}/tmp/controller/paste_location'.format(path))
         print('Paste path found: {}'.format(paste_path))
         os.system('mkdir -p {}/logs/{}'.format(log_repo, paste_path))
         os.system('cp -r {}/tmp/controller {}/logs/{}'.format(
             path, log_repo, paste_path))
         os.system('cp {}/tmp/job_logs/job-output.json {}/logs/{}'.format(
             path, log_repo, paste_path))
+        tar_name = paste_path.split('/')[-1] + '.tar'
+        print('Compressing logs')
+        os.system("cd {}/logs/{}; tar --exclude='job-output.json' -cvf {} *; xz -z {}".format(
+            log_repo, paste_path, tar_name, tar_name))
+        dir_content = os.listdir('{}/logs/{}'.format(log_repo, paste_path))
+        print(dir_content)
+        for del_file in dir_content:
+            if '.xz' not in del_file or 'job-output.json' not in del_file:
+                os.system('rm -rf {}/logs/{}/{}'.format(
+                    log_repo, paste_path, del_file))
         print('Keeping only last 3 patchsets')
         current_change = i.split('_')[0]
         patchset_list = os.listdir('{}/logs/{}/{}'.format(
@@ -36,7 +47,6 @@ while True:
             os.system('rm -rf {}/logs/{}/{}/{}'.format(
                 log_repo, current_change[:-2], current_change, j))
         print("Creating all directory htmls")
-        os.remove('{}/logs/{}/controller/paste_location'.format(log_repo, paste_path))
         os.system('python {}/logs2html.py {}'.format(log_repo, log_repo))
         print("Performing Git operations")
         os.chdir(log_repo)
