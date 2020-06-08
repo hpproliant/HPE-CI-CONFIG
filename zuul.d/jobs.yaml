@@ -22,6 +22,7 @@
       - ^setup.cfg$
       - ^tools/.*$
       - ^tox.ini$
+      - ^zuul.d/.*$
     run: playbooks/hpe-proliant-ironic-agent-ilo.yaml
     nodeset:
       nodes:
@@ -45,6 +46,7 @@
       - ^setup.cfg$
       - ^tools/.*$
       - ^tox.ini$
+      - ^zuul.d/.*$
     run: playbooks/hpe-proliant-ironic-iscsi-ilo.yaml
     nodeset:
       nodes:
@@ -68,6 +70,7 @@
       - ^setup.cfg$
       - ^tools/.*$
       - ^tox.ini$
+      - ^zuul.d/.*$
     run: playbooks/hpe-proliant-ironic-pxe-ilo.yaml
     nodeset:
       nodes:
@@ -91,6 +94,7 @@
       - ^setup.cfg$
       - ^tools/.*$
       - ^tox.ini$
+      - ^zuul.d/.*$
     run: playbooks/hpe-proliant-ironic-redfish-driver.yaml
     nodeset:
       nodes:
@@ -114,6 +118,7 @@
       - ^setup.cfg$
       - ^tools/.*$
       - ^tox.ini$
+      - ^zuul.d/.*$
     run: playbooks/hpe-proliant-ironic-redfish-pxe-driver.yaml
     nodeset:
       nodes:
