@@ -124,3 +124,27 @@
       nodes:
         - name: ubuntu
           label: cloud
+
+- job:
+    name: hpe-gen10-dsvm-ironic-standalone-wholedisk-ilo-uefi-https-direct-python3
+    description: A job to test ilo uefi-https deploy for HPE Proliant Server
+    timeout: 10800
+    parent: base
+    irrelevant-files:
+      - ^(test-|driver-)requirements.txt$
+      - ^.*\.rst$
+      - ^api-ref/.*$
+      - ^doc/.*$
+      - ^install-guide/.*$
+      - ^ironic/locale/.*$
+      - ^ironic/tests/.*$
+      - ^releasenotes/.*$
+      - ^setup.cfg$
+      - ^tools/.*$
+      - ^tox.ini$
+      - ^zuul.d/.*$
+    run: playbooks/hpe-proliant-ironic-ilo5-driver-uefi-https.yaml
+    nodeset:
+      nodes:
+        - name: ubuntu
+          label: cloud
