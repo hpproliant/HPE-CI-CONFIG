@@ -18,7 +18,7 @@
           shell: cd /opt/stack/ironic; git config --global user.email "proliantutils@gmail.com"; git config --global user.name "proliantci"; git fetch https://review.opendev.org/openstack/ironic {{zuul.ref}} && git cherry-pick FETCH_HEAD
 
         - name: Preparing gate
-          shell: bash /tmp/uefi-https/HPE-CI-JOBS/redfish-driver/prepare_gate.sh
+          shell: bash /tmp/uefi-https/HPE-CI-JOBS/ilo5-uefi-https/prepare_gate.sh
 
         - name: Configure molten
           shell: sudo bash /tmp/uefi-https/HPE-CI-JOBS/molteniron/configure_molten
@@ -34,7 +34,7 @@
           command: /tmp/uefi-https/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Ironic_Gen10
 
         - name: Running redfish-driver
-          shell: bash /tmp/uefi-https/HPE-CI-JOBS/redfish-driver/gate.sh
+          shell: bash /tmp/uefi-https/HPE-CI-JOBS/ilo5-uefi-https/gate.sh
 
       always:
         - name: Deallocating test node
