@@ -1,0 +1,41 @@
+- hosts: all
+  name: HPE Proliant fw-update job
+  tasks:
+
+    - name: Create workspace directory to run fw-update
+      file:
+        path: '/tmp/fw-update'
+        state: directory
+
+    - block:
+        - name: Cloning devstack-gate for fw-update
+          shell: cd /tmp/fw-update; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
+
+        - name: Clone Projects
+          shell: /tmp/fw-update/HPE-CI-JOBS/clone_project.sh
+
+        - name: Cherry pick
+          shell: cd /opt/stack/ironic; git config --global user.email "proliantutils@gmail.com"; git config --global user.name "proliantci"; git fetch https://review.opendev.org/openstack/ironic {{zuul.ref}} && git cherry-pick FETCH_HEAD
+
+        - name: Preparing gate
+          shell: /tmp/fw-update/HPE-CI-JOBS/agent-ilo/prepare_gate.sh
+
+        - name: Configure molten
+          shell: sudo bash /tmp/fw-update/HPE-CI-JOBS/molteniron/configure_molten
+
+        - name: Running dhclient
+          shell: sudo dhclient
+
+        - name: Generate MoltenIron Id for node
+          command: uuidgen
+          register: uuid
+
+        - name: Allocating test node
+          command: /tmp/fw-update/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} G9_fw
+
+        - name: Running fw-update
+          shell: /tmp/fw-update/HPE-CI-JOBS/agent-ilo/gate.sh
+
+      always:
+        - name: Deallocating test node
+          shell: /tmp/fw-update/HPE-CI-JOBS/molteniron/release_molten.py {{ uuid.stdout }}
