@@ -16,11 +16,13 @@
           action: comment
           comment: (?i)^\s*recheck\s*$
     success:
-      gerrit: {}
+      gerrit:
+        Verified: 1
       github:
         status: 'success'
     failure:
-      gerrit: {}
+      gerrit:
+        Verified: -1
       github:
         status: 'failure'
     
