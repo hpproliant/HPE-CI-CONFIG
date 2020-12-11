@@ -18,7 +18,7 @@
           shell: cd /opt/stack/ironic; git config --global user.email "proliantutils@gmail.com"; git config --global user.name "proliantci"; git fetch https://review.opendev.org/openstack/ironic {{zuul.ref}} && git cherry-pick FETCH_HEAD
 
         - name: Preparing gate
-          shell: /tmp/fw-update/HPE-CI-JOBS/agent-ilo/prepare_gate.sh
+          shell: /tmp/fw-update/HPE-CI-JOBS/fw-update/prepare_gate.sh
 
         - name: Configure molten
           shell: sudo bash /tmp/fw-update/HPE-CI-JOBS/molteniron/configure_molten
@@ -34,7 +34,7 @@
           command: /tmp/fw-update/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} G9_fw
 
         - name: Running fw-update
-          shell: /tmp/fw-update/HPE-CI-JOBS/agent-ilo/gate.sh
+          shell: /tmp/fw-update/HPE-CI-JOBS/fw-update/gate.sh
 
       always:
         - name: Deallocating test node
