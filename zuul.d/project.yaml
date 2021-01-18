@@ -9,7 +9,7 @@
        - hpe-gen10-dsvm-ironic-standalone-wholedisk-uefi-redfish-virtual-media-direct-python3
        - hpe-gen10-dsvm-ironic-standalone-wholedisk-uefi-redfish-pxe-python3
        - hpe-gen10-dsvm-ironic-standalone-wholedisk-ilo-uefi-https-direct-python3
-    name: openstack/sushy
-    check:
-      jobs:
-       - hpe-gen10-dsvm-sushy-standalone-wholedisk-uefi-redfish-virtual-media-direct-python3
+         #    name: openstack/sushy
+         #    check:
+         #      jobs:
+         #       - hpe-gen10-dsvm-sushy-standalone-wholedisk-uefi-redfish-virtual-media-direct-python3
