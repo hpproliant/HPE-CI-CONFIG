@@ -1,0 +1,41 @@
+- hosts: all
+  name: HPE Proliant sushy redfish driver job
+  tasks:
+
+    - name: Create workspace directory to run redfish-driver
+      file:
+        path: '/tmp/redfish-driver'
+        state: directory
+
+    - block:
+        - name: Cloning devstack-gate for redfish-driver
+          shell: cd /tmp/redfish-driver; git clone https://github.com/hpproliant/HPE-CI-JOBS.git
+
+        - name: Clone Projects
+          shell: /tmp/redfish-driver/HPE-CI-JOBS/clone_project.sh
+
+        - name: Cherry pick
+          shell: cd /opt/stack/sushy; git config --global user.email "proliantutils@gmail.com"; git config --global user.name "proliantci"; git fetch https://review.opendev.org/openstack/sushy {{zuul.ref}} && git cherry-pick FETCH_HEAD
+
+        - name: Preparing gate
+          shell: bash /tmp/redfish-driver/HPE-CI-JOBS/redfish-driver/prepare_gate.sh
+
+        - name: Configure molten
+          shell: sudo bash /tmp/redfish-driver/HPE-CI-JOBS/molteniron/configure_molten
+
+        - name: Running dhclient
+          shell: sudo dhclient
+
+        - name: Generate MoltenIron Id for node
+          command: uuidgen
+          register: uuid
+
+        - name: Allocating test node
+          command: /tmp/redfish-driver/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Ironic_Gen10
+
+        - name: Running redfish-driver
+          shell: bash /tmp/redfish-driver/HPE-CI-JOBS/redfish-driver/gate.sh
+
+      always:
+        - name: Deallocating test node
+          shell: /tmp/redfish-driver/HPE-CI-JOBS/molteniron/release_molten.py {{ uuid.stdout }}

@@ -172,3 +172,28 @@
       nodes:
         - name: ubuntu
           label: cloud
+
+
+- job:
+    name: hpe-gen10-dsvm-sushy-standalone-wholedisk-uefi-redfish-virtual-media-direct-python3
+    description: A job to test redfish based driver for HPE Proliant Server
+    timeout: 10800
+    parent: base
+    irrelevant-files:
+      - ^(test-|driver-)requirements.txt$
+      - ^.*\.rst$
+      - ^api-ref/.*$
+      - ^doc/.*$
+      - ^install-guide/.*$
+      - ^sushy/locale/.*$
+      - ^sushy/tests/.*$
+      - ^releasenotes/.*$
+      - ^setup.cfg$
+      - ^tools/.*$
+      - ^tox.ini$
+      - ^zuul.d/.*$
+    run: playbooks/hpe-proliant-sushy-redfish-driver.yaml
+    nodeset:
+      nodes:
+        - name: ubuntu
+          label: cloud
