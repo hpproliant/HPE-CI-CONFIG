@@ -130,6 +130,7 @@
     description: A job to test ilo uefi-https deploy for HPE Proliant Server
     timeout: 10800
     parent: base
+    voting: false
     irrelevant-files:
       - ^(test-|driver-)requirements.txt$
       - ^.*\.rst$
@@ -154,6 +155,7 @@
     description: A job to test ilo firmware update for HPE Proliant Server
     timeout: 10800
     parent: base
+    voting: false
     irrelevant-files:
       - ^(test-|driver-)requirements.txt$
       - ^.*\.rst$
