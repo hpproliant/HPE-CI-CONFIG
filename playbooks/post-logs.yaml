@@ -37,9 +37,9 @@
             content: |
               source /home/ubuntu/proxy
               mkdir /tmp/controller/logs
-              ssh -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no zuul@169.16.1.54 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
-              ssh -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no zuul@169.16.1.54 "sudo chmod -R 0777 /tmp; sudo chown -R zuul.zuul /tmp"
-              scp -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no -r zuul@169.16.1.54:{{ zuul.executor.log_root }} /tmp/job_logs
+              ssh -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no zuul@15.213.141.10 "sudo chown -R zuul.zuul {{ zuul.executor.log_root }}"
+              ssh -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no zuul@15.213.141.10 "sudo chmod -R 0777 /tmp; sudo chown -R zuul.zuul /tmp"
+              scp -i /home/ubuntu/zuul_id_rsa -o StrictHostKeyChecking=no -r zuul@15.213.141.10:{{ zuul.executor.log_root }} /tmp/job_logs
               sudo journalctl -u devstack@dstat.service >>/tmp/controller/logs/dstat.service 2>/dev/null
               sudo journalctl -u devstack@etcd.service >>/tmp/controller/logs/etcd.service 2>/dev/null
               sudo journalctl -u devstack@g-api.service >>/tmp/controller/logs/g-api.service 2>/dev/null
@@ -58,20 +58,20 @@
               sudo journalctl -u devstack@s-object.service >>/tmp/controller/logs/s-object.service 2>/dev/null
               sudo journalctl -u devstack@s-proxy.service >>/tmp/controller/logs/s-proxy.service 2>/dev/null
               mkdir -p /tmp/controller/logs/etc
-              sudo cp -r /etc/glance/ /etc/ironic/ /etc/keystone /etc/neutron /etc/swift /tmp/controller/logs/etc/
-              sudo cp /opt/stack/tempest/etc/tempest.conf /tmp/controller/logs/etc/
+              sudo cp -r /etc/glance/ /etc/ironic/ /etc/keystone /etc/neutron /etc/swift /tmp/controller/logs/etc/ 2>/dev/null || :
+              sudo cp /opt/stack/tempest/etc/tempest.conf /tmp/controller/logs/etc/ 2>/dev/null || :
               if [ -d /tmp/devstack_logs/ ]; then
-                 mv /tmp/devstack_logs /tmp/controller/logs/
-                 sudo cp /opt/stack/devstack/local.conf /tmp/controller/logs/devstack_logs
+                 mv /tmp/devstack_logs /tmp/controller/logs/ 2>/dev/null || :
+                 sudo cp /opt/stack/devstack/local.conf /tmp/controller/logs/devstack_logs 2>/dev/null || :
               fi
               cd ~/
-              wget http://169.16.1.54:9999/ironman-build_id_rsa
+              wget --no-proxy http://15.213.141.10:9999/ironman-build_id_rsa
               sudo chmod 600 ironman-build_id_rsa
-              remote_run="ssh -i /home/ubuntu/ironman-build_id_rsa -o StrictHostKeyChecking=no ironman-build@169.16.1.32"
+              remote_run="ssh -i /home/ubuntu/ironman-build_id_rsa -o StrictHostKeyChecking=no ironman-build@15.213.141.2"
               echo "Copying all logs to remote"
               echo "{{ log_path }}" >> /tmp/controller/paste_location
               tar -cvf /tmp/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar /tmp/controller /tmp/job_logs
-              scp -i /home/ubuntu/ironman-build_id_rsa -o StrictHostKeyChecking=no /tmp/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar ironman-build@169.16.1.32:/home/ironman-build/hpeironicci_incoming_logs
+              scp -i /home/ubuntu/ironman-build_id_rsa -o StrictHostKeyChecking=no /tmp/{{ zuul.change }}_{{ zuul.patchset }}_{{ zuul.job }}.tar ironman-build@15.213.141.2:/home/ironman-build/hpeironicci_incoming_logs
               echo "done"
 
 
