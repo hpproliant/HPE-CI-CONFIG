@@ -31,7 +31,7 @@
           register: uuid
 
         - name: Allocating test node
-          command: /tmp/uefi-https/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Ironic_Gen10
+          command: /tmp/uefi-https/HPE-CI-JOBS/molteniron/allocate_molten.py {{ uuid.stdout }} Gen9
 
         - name: Running redfish-driver
           shell: bash /tmp/uefi-https/HPE-CI-JOBS/ilo5-uefi-https/gate.sh
