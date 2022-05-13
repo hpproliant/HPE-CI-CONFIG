@@ -8,7 +8,7 @@ from git import Repo
 log_list = []
 path = '/home/ironman-build/hpeironicci_incoming_logs'
 log_repo = '/home/ironman-build/hpeproliant.github.io'
-repo = Repo("/home/paresh/remote/ci/hpeproliant.github.io")
+repo = Repo(log_repo)
 while True:
     if len(log_list) == 0:
         log_list = [x for x in os.listdir(path) if '.tar' in x]
