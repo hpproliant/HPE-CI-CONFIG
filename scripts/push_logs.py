@@ -2,10 +2,13 @@
 import os
 import time
 
+from git import Repo
+
 
 log_list = []
 path = '/home/ironman-build/hpeironicci_incoming_logs'
 log_repo = '/home/ironman-build/hpeproliant.github.io'
+repo = Repo("/home/paresh/remote/ci/hpeproliant.github.io")
 while True:
     if len(log_list) == 0:
         log_list = [x for x in os.listdir(path) if '.tar' in x]
@@ -37,12 +40,6 @@ while True:
             "tar -cvf services.tar *.service;"
             "xz -z services.tar;"
             "rm -rf devstack_logs *.service").format(log_repo, paste_path))
-        #dir_content = os.listdir('{}/logs/{}'.format(log_repo, paste_path))
-        #print(dir_content)
-        #for del_file in dir_content:
-        #    if '.xz' not in del_file and 'job-output.json' not in del_file:
-        #        os.system('rm -rf {}/logs/{}/{}'.format(
-        #            log_repo, paste_path, del_file))
         print('Keeping only last 3 patchsets')
         current_change = i.split('_')[0]
         patchset_list = os.listdir('{}/logs/{}/{}'.format(
@@ -57,14 +54,13 @@ while True:
         print("Performing Git operations")
         os.chdir(log_repo)
         os.system('chmod -R 0777 *')
-        os.system('git config --global user.name "hpproliant"')
-        os.system('git config --global user.email "proliantutils@gmail.com"')
-        os.system('git config --global credential.helper "/usr/local/share/gcm-core/git-credential-manager-core"')
-        os.system('git config --global credential.credentialstore "cache"')
-        os.system('git config --global credential.https://dev.azure.com.usehttppath "true"')
-        os.system('git add .')
-        os.system('git commit -m "Commited {}"'.format(paste_path))
-        os.system('git push --set-upstream origin master')
+        repo.config_writer().set_value("user", "name", "hpproliant").release()
+        repo.config_writer().set_value("user", "email", "proliantutils@gmail.com").release()
+        repo.config_writer().set_value("credential", "credentialStore", "plaintext").release()
+        repo.git.add('--all')
+        repo.git.commit("-m", "commit mesage from script 1")
+        origin = repo.remote(name='origin')
+        origin.push()
         print("Cleaning up")
         os.system("rm -rf {}/{} {}/tmp".format(path, i, path))
 
