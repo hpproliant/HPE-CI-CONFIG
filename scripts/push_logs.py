@@ -58,7 +58,8 @@ while True:
         repo.config_writer().set_value("user", "email", "proliantutils@gmail.com").release()
         repo.config_writer().set_value("credential", "credentialStore", "plaintext").release()
         repo.git.add('--all')
-        repo.git.commit("-m", "commit mesage from script 1")
+        commit_msg = "Commited " + paste_path
+        repo.git.commit("-m", commit_msg)
         origin = repo.remote(name='origin')
         origin.push()
         print("Cleaning up")
